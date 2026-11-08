@@ -23,6 +23,17 @@ class Grid:
         cell = self.cells[index]
         print(cell)
         cell.state = "alive"
+    
+    # def get_cell(self, row: int, col: int) -> Cell:
+    #     index = row * (self.width//self.cell_size) + col
+    #     return self.cells[index]
 
+    def get_cell(self, x:int, y:int ) -> Cell:
+        index = x//self.cell_size * (self.width//self.cell_size) + y//self.cell_size
+        return self.cells[index]
+        
+    def get_cell(self, coordinates: tuple[int, int]) -> Cell:
+        index = coordinates[0]//self.cell_size * (self.height//self.cell_size) + coordinates[1]//self.cell_size
+        return self.cells[index]
 
     

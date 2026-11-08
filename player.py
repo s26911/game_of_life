@@ -1,3 +1,4 @@
+import sys
 from constants import KEY_PRESS_COOLDOWN
 from grid import Grid
 import grid
@@ -13,8 +14,16 @@ class Player:
             self.timer += dt
             return
         keys = pygame.key.get_pressed()
-
         if keys[pygame.K_r]:
             self.grid.born_random()
             self.timer = 0.0
+        if keys[pygame.K_q]:
+            sys.exit()
 
+        left, _, right = pygame.mouse.get_pressed()
+        if left:
+            cell = self.grid.get_cell(pygame.mouse.get_pos())
+            cell.state = "alive"
+        if right:
+            cell = self.grid.get_cell(pygame.mouse.get_pos())
+            cell.state = "dead"

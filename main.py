@@ -16,7 +16,10 @@ def main():
 
     while True:
         for event in pygame.event.get():
-            pass
+            if event.type == pygame.QUIT:
+                return
+
+                
         screen.fill("black")
         player.update(dt)
         grid.draw(screen)
