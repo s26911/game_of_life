@@ -1,3 +1,4 @@
+import random
 from constants import COLOR
 import pygame
 from cell import Cell
@@ -13,11 +14,15 @@ class Grid:
             for y in range(height//cell_size):
                 self.cells.append(Cell(self.cell_size, x, y, COLOR))
 
-        print(self.cells)
-
-
     def draw(self, screen: pygame.Surface) -> None:
         for cell in self.cells:
             cell.draw(screen)
+    
+    def born_random(self):
+        index = random.randint(0, len(self.cells)-1)
+        cell = self.cells[index]
+        print(cell)
+        cell.state = "alive"
+
 
     

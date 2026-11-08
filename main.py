@@ -1,3 +1,4 @@
+from player import Player
 from constants import SCREEN_HEIGHT
 from constants import SCREEN_WIDTH
 from grid import Grid
@@ -8,12 +9,20 @@ def main():
     print("Hello from game-of-life!")
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill("black")
-
     grid = Grid(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_SIZE)
-    grid.draw(screen)
+    player = Player(grid)
+    clock = pygame.time.Clock()
+    dt = 0.0
+
     while True:
-        pygame.display.flip()  
+        for event in pygame.event.get():
+            pass
+        screen.fill("black")
+        player.update(dt)
+        grid.draw(screen)
+        pygame.display.flip()
+        dt = clock.tick(60) / 1000
+
 
 
 if __name__ == "__main__":
