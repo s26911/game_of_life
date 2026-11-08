@@ -15,8 +15,8 @@ class Cell(pygame.Rect):
         # self.position = pygame.Vector2(row*size, column*size)
         
     
-    def draw(self, screen: pygame.Surface):
+    def draw(self, screen: pygame.Surface, color: str, line_width: int = LINE_WIDTH):
         if self.state == "dead":
-            pygame.draw.rect(screen, self.color, self, LINE_WIDTH)
+            pygame.draw.rect(screen, color, self, line_width)
         else:
-            pygame.draw.rect(screen, self.color, self)
+            pygame.draw.rect(screen, color, self)

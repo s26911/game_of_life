@@ -1,5 +1,5 @@
 import random
-from constants import COLOR, SIMULATION_SPEED
+from constants import COLOR, SIMULATION_SPEED, PAUSE_COLOR, HOVER_COLOR
 import pygame
 from cell import Cell
 
@@ -12,6 +12,8 @@ class Grid:
         self.rows = height//cell_size
         self.cells: list[Cell] = []
         self.update_timer = 0.0
+        self.paused = False
+        self.hovered: Cell = None
 
         for x in range(self.columns):
             for y in range(self.rows):
@@ -19,7 +21,9 @@ class Grid:
 
     def draw(self, screen: pygame.Surface) -> None:
         for cell in self.cells:
-            cell.draw(screen)
+            cell.draw(screen, PAUSE_COLOR if self.paused else COLOR)
+        if self.hovered is not None:
+            self.hovered.draw(screen, HOVER_COLOR, 4)
     
     def born_random(self):
         index = random.randint(0, len(self.cells)-1)
@@ -83,20 +87,19 @@ class Grid:
 
     def update(self, dt: float):
         self.update_timer += dt
-        print(f"timer: {self.update_timer}, dt: {dt}")
-        if (self.update_timer >= SIMULATION_SPEED):
+        if self.update_timer >= SIMULATION_SPEED and not self.paused:
             self.update_timer = 0.0
             state_mask = []
             for i in range(len(self.cells)):
                 alive_count = self.count_alive(self.get_neighbours(i))
-                print(f"i: {i}, alive: {alive_count}")
                 if (alive_count == 2 and self.cells[i].state == "alive") or alive_count == 3:
                     state_mask.append(True)
                 else:
                     state_mask.append(False)
-            print(f"{state_mask}")
             self.apply_state_mask(state_mask)
                 
-            
+    def clear(self):
+        for cell in self.cells:
+            cell.state = "dead"
         
     
