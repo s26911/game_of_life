@@ -20,10 +20,12 @@ class Player:
         if keys[pygame.K_q]:
             sys.exit()
 
-        left, _, right = pygame.mouse.get_pressed()
+        left, middle, right = pygame.mouse.get_pressed()
         if left:
-            cell = self.grid.get_cell(pygame.mouse.get_pos())
+            cell = self.grid.get_cell_at(pygame.mouse.get_pos())
             cell.state = "alive"
         if right:
-            cell = self.grid.get_cell(pygame.mouse.get_pos())
+            cell = self.grid.get_cell_at(pygame.mouse.get_pos())
             cell.state = "dead"
+        if middle:
+            pass

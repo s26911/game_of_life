@@ -4,3 +4,4 @@ CELL_SIZE = 40
 LINE_WIDTH = 1
 COLOR = "white"
 KEY_PRESS_COOLDOWN = 0.2
+SIMULATION_SPEED = 1 # one tick every X seconds
